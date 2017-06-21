@@ -70,3 +70,27 @@ mkl: 691ms
 avg value of c: 0.00315872
 eigen: 1689ms
 avg value of c: 0.00315872
+
+
+Openblas
+
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 13h53m $ OMP_NUM_THREADS=1 ./openblas 500000
+100     32      500000
+mkl: 233ms
+avg value of c: 0.00315867
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 13h54m $ OMP_NUM_THREADS=1 ./openblas 500000
+100     32      500000
+mkl: 233ms
+avg value of c: 0.00315867
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 13h54m $ OMP_NUM_THREADS=1 ./openblas 1000000
+100     32      1000000
+mkl: 464ms
+avg value of c: 0.00315779
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 13h54m $ OMP_NUM_THREADS=1 ./openblas 1000000
+100     32      1000000
+mkl: 464ms
+avg value of c: 0.00315779
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 13h54m $ OMP_NUM_THREADS=1 ./openblas 5000000
+100     32      5000000
+mkl: 2397ms
+avg value of c: 0.00315848
