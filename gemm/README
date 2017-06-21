@@ -26,3 +26,47 @@ avg value of c: 0.00315872
 eigen: 3091ms
 avg value of c: 0.00315848
 
+2017-06-21
+
+build eigen 3.3.4 without mkl 
+cmake -DCMAKE_INSTALL_PREFIX=/data01/home/xiangliang/3rd -DCMAKE_Fortran_COMPILER=gfortran ..
+
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 9h18m $ ./run.sh 500000
+100     32      500000
+mkl: 88ms
+avg value of c: 0.00315856
+eigen: 280ms
+avg value of c: 0.00315867
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 9h18m $ ./run.sh 1000000
+100     32      1000000
+mkl: 168ms
+avg value of c: 0.00315782
+eigen: 562ms
+avg value of c: 0.00315779
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 9h18m $ ./run.sh 5000000
+100     32      5000000
+mkl: 809ms
+avg value of c: 0.00315872
+eigen: 2837ms
+avg value of c: 0.00315848
+
+build with -march=native
+
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 9h43m $ ./run.sh 500000
+100     32      500000
+mkl: 76ms
+avg value of c: 0.00315856
+eigen: 167ms
+avg value of c: 0.00315856
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 9h43m $ ./run.sh 1000000
+100     32      1000000
+mkl: 145ms
+avg value of c: 0.00315782
+eigen: 337ms
+avg value of c: 0.00315782
+(py2env)xiangliang@n8-147-095:~/test/gemm] (master) 9h43m $ ./run.sh 5000000
+100     32      5000000
+mkl: 691ms
+avg value of c: 0.00315872
+eigen: 1689ms
+avg value of c: 0.00315872
