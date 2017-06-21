@@ -1,18 +1,14 @@
-#include <mkl.h>
+#include <cblas.h>
 #include <stdlib.h>
 #include <math.h>
 
 #include <chrono>
 #include <iostream>
-#include <Eigen/Dense>
-using namespace Eigen;
 
 #define NOW() std::chrono::high_resolution_clock::now()
 #define ELAPSED(msg, x) std::cout << msg << ": " << std::chrono::duration_cast<std::chrono::milliseconds>(NOW() - x).count() << "ms" << std::endl
 
-typedef Matrix<float, Dynamic, Dynamic, RowMajor> MatrixXfR;
-
-int mkl_gemm(size_t N, size_t M, size_t F) {
+int gemm(size_t N, size_t M, size_t F) {
   float * a;
   float * b;
   float * c;
@@ -52,39 +48,10 @@ int mkl_gemm(size_t N, size_t M, size_t F) {
   free(c);
 }
 
-int eigen_gemm(int N, int M, int F) {
-  MatrixXfR a = MatrixXfR::Random(F, N);
-  MatrixXfR b = MatrixXfR::Random(M, F);
-
-  for (int i = 0; i < F; ++i) {
-    for (int j = 0; j < N; ++j) {
-      a(i, j) = ((i + j) % 10000 - 5000) / 5000.0;
-    }
-  }
-
-  for (int i = 0; i < M; ++i) {
-    for (int j = 0; j < F; ++j) {
-      b(i, j) = ((i + j) % 10000 - 5000) / 5000.0;
-    }
-  }
-  MatrixXfR c(M, N);
-  auto start = NOW();
-  c.noalias() = b * a;
-  ELAPSED("eigen", start);
-
-  float avg = 0;
-  for (int i = 0; i < M * N; ++i) {
-    avg += c(i / N, i % N);
-  }
-  std::cout << "avg value of c: " << avg / (float)(M) / (float)(N) << std::endl;
-}
-
 int main(int argc, char ** argv) {
   int N = atoi(argv[1]);
   int M = 100;
   int F = 32;
 
-  mkl_gemm(N, M, F);
-  eigen_gemm(N, M, F);
-  
+  gemm(N, M, F);  
 }
